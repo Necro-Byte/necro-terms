@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Necro Byte - Elite Cybersecurity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide-icons/0.308.0/lucide.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --matrix-green: #00ff41;
+            --dark-bg: #000000;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background-color: var(--dark-bg);
+            color: var(--matrix-green);
+        }
+
+        /* Navigation Styles */
+        nav {
+            background-color: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid var(--matrix-green);
+        }
+
+        .nav-link {
+            color: var(--matrix-green);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(0, 255, 65, 0.1);
+            border-color: rgba(0, 255, 65, 0.5);
+        }
+
+        /* Main Content Styles */
+        .section {
+            min-height: 100vh;
+            padding: 4rem 2rem;
+            border-bottom: 1px solid var(--matrix-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .terminal-prompt {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            max-width: 800px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            border: 1px solid var(--matrix-green);
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            background-color: rgba(0, 255, 65, 0.1);
+        }
+
+        /* Training Section */
+        .training-modules {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .module {
+            padding: 1rem;
+            border: 1px solid var(--matrix-green);
+        }
+
+        /* News Feed */
+        .news-feed {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .news-item {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-left: 3px solid var(--matrix-green);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--matrix-green);
+            padding: 2rem;
+            border-top: 1px solid var(--matrix-green);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            position: relative;
+        }
+
+        .footer-section h3 {
+            color: var(--matrix-green);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin: 0.5rem 0;
+            color: #ffffff;
+        }
+
+        .social-icons {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icons a {
+            color: var(--matrix-green);
+            text-decoration: none;
+        }
+
+        .links-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .links-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .links-list a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .links-list a:hover {
+            color: var(--matrix-green);
+        }
+
+        .popup-box {
+            background: rgba(0, 255, 65, 0.1);
+            border: 1px solid var(--matrix-green);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .popup-box h4 {
+            margin: 0 0 0.5rem 0;
+            color: #ffffff;
+        }
+
+        .consult-button {
+            background: var(--matrix-green);
+            color: var(--dark-bg);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+
+        .status-indicators {
+            color: var(--matrix-green);
+            margin-top: 2rem;
+        }
+
+        .terminal-line {
+            color: var(--matrix-green);
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .services-grid,
+            .training-modules {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Matrix Rain Animation */
+        .matrix-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 100%);
+        }
+
+        .matrix-rain::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 255, 65, 0.1) 0px,
+                rgba(0, 255, 65, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            animation: matrix-rain 20s linear infinite;
+        }
+
+        @keyframes matrix-rain {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <div class="matrix-rain"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-sm border-b border-green-500/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="terminal" class="h-8 w-8 text-green-400"></i>
+                    <div class="text-xl font-bold">
+                        <span class="text-white">NECRO</span>
+                        <span class="text-green-400">BYTE</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#services" class="nav-link px-3 py-2 text-sm font-medium hover:text-white rounded-md border border-transparent hover:border-green-400/50 transition-all duration-300">Services</a>
+                        <a href="#training" class="nav-link px-3 py-2 text-sm font-medium hover:text-white rounded-md border border-transparent hover:border-green-400/50 transition-all duration-300">Training</a>
+                        <a href="#tools" class="nav-link px-3 py-2 text-sm font-medium hover:text-white rounded-md border border-transparent hover:border-green-400/50 transition-all duration-300">Tools</a>
+                        <a href="#news" class="nav-link px-3 py-2 text-sm font-medium hover:text-white rounded-md border border-transparent hover:border-green-400/50 transition-all duration-300">News</a>
+                        <a href="#about" class="nav-link px-3 py-2 text-sm font-medium hover:text-white rounded-md border border-transparent hover:border-green-400/50 transition-all duration-300">About</a>
+                        <a href="#labs" class="nav-link px-3 py-2 text-sm font-medium hover:text-white rounded-md border border-transparent hover:border-green-400/50 transition-all duration-300">Labs</a>
+                        <a href="#portal" class="nav-link px-3 py-2 text-sm font-medium hover:text-white rounded-md border border-transparent hover:border-green-400/50 transition-all duration-300">Portal</a>
+                        <button class="px-4 py-2 text-sm font-medium text-black bg-green-400 hover:bg-green-300 rounded border border-green-400 transition-all duration-300">
+                            CONTACT
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-green-400 hover:text-white hover:bg-green-400/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-green-400">
+                        <i data-lucide="menu" id="menu-icon" class="block h-6 w-6"></i>
+                        <i data-lucide="x" id="close-icon" class="hidden h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/95 border-t border-green-500/30">
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-green-400 hover:text-white hover:bg-green-400/10 border border-transparent hover:border-green-400/50 transition-all duration-300" onclick="toggleMobileMenu()">Services</a>
+                <a href="#training" class="block px-3 py-2 rounded-md text-base font-medium text-green-400 hover:text-white hover:bg-green-400/10 border border-transparent hover:border-green-400/50 transition-all duration-300" onclick="toggleMobileMenu()">Training</a>
+                <a href="#tools" class="block px-3 py-2 rounded-md text-base font-medium text-green-400 hover:text-white hover:bg-green-400/10 border border-transparent hover:border-green-400/50 transition-all duration-300" onclick="toggleMobileMenu()">Tools</a>
+                <a href="#news" class="block px-3 py-2 rounded-md text-base font-medium text-green-400 hover:text-white hover:bg-green-400/10 border border-transparent hover:border-green-400/50 transition-all duration-300" onclick="toggleMobileMenu()">News</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-green-400 hover:text-white hover:bg-green-400/10 border border-transparent hover:border-green-400/50 transition-all duration-300" onclick="toggleMobileMenu()">About</a>
+                <a href="#labs" class="block px-3 py-2 rounded-md text-base font-medium text-green-400 hover:text-white hover:bg-green-400/10 border border-transparent hover:border-green-400/50 transition-all duration-300" onclick="toggleMobileMenu()">Labs</a>
+                <a href="#portal" class="block px-3 py-2 rounded-md text-base font-medium text-green-400 hover:text-white hover:bg-green-400/10 border border-transparent hover:border-green-400/50 transition-all duration-300" onclick="toggleMobileMenu()">Portal</a>
+                <button class="w-full mt-4 px-4 py-2 text-sm font-medium text-black bg-green-400 hover:bg-green-300 rounded border border-green-400 transition-all duration-300">
+                    CONTACT
+                </button>
+            </div>
+        </div>
+
+        <script>
+            // Mobile menu toggle functionality
+            function toggleMobileMenu() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                const menuIcon = document.getElementById('menu-icon');
+                const closeIcon = document.getElementById('close-icon');
+                
+                mobileMenu.classList.toggle('hidden');
+                menuIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            }
+        </script>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16">
+        <!-- Hero Section -->
+        <section id="hero" class="section hero">
+            <div class="terminal-prompt">
+                <h1 class="text-4xl font-bold mb-4">WELCOME TO NECRO BYTE</h1>
+                <p>Elite cybersecurity professionals specializing in advanced red team operations, penetration testing, and security research.</p>
+                <div class="mt-8">
+                    <button class="px-8 py-3 text-lg font-bold text-black bg-green-400 hover:bg-green-300 rounded border border-green-400 transition-all duration-300">
+                        GET STARTED
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <h2 class="text-3xl font-bold text-center mb-8">OUR SERVICES</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3 class="text-xl mb-2">Penetration Testing</h3>
+                    <p>Comprehensive security assessments for web, mobile, and infrastructure systems.</p>
+                </div>
+                <div class="service-card">
+                    <h3 class="text-xl mb-2">Red Team Operations</h3>
+                    <p>Simulate advanced persistent threats to test organizational resilience.</p>
+                </div>
+                <div class="service-card">
+                    <h3 class="text-xl mb-2">Security Assessments</h3>
+                    <p>Full-scope security audits with detailed remediation plans.</p>
+                </div>
+                <div class="service-card">
+                    <h3 class="text-xl mb-2">Incident Response</h3>
+                    <p>24/7 emergency response to security breaches and compromises.</p>
+                </div>
+                <div class="service-card">
+                    <h3 class="text-xl mb-2">Threat Intelligence</h3>
+                    <p>Proactive monitoring and analysis of emerging threats.</p>
+                </div>
+                <div class="service-card">
+                    <h3 class="text-xl mb-2">Security Training</h3>
+                    <p>12-module red team training program for cybersecurity professionals.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Section -->
+        <section id="training" class="section">
+            <h2 class="text-3xl font-bold text-center mb-8">TRAINING MODULES</h2>
+            <div class="training-modules">
+                <div class="module">Module 1: Introduction to Red Teaming</div>
+                <div class="module">Module 2: Network Exploitation</div>
+                <div class="module">Module 3: Web Application Security</div>
+                <div class="module">Module 4: Social Engineering</div>
+                <div class="module">Module 5: Password Cracking</div>
+                <div class="module">Module 6: Reverse Engineering</div>
+                <div class="module">Module 7: Privilege Escalation</div>
+                <div class="module">Module 8: Lateral Movement</div>
+                <div class="module">Module 9: Persistence Techniques</div>
+                <div class="module">Module 10: Data Exfiltration</div>
+                <div class="module">Module 11: Evasion Tactics</div>
+                <div class="module">Module 12: Post-Exploitation</div>
+            </div>
+        </section>
+
+        <!-- News Section -->
+        <section id="news" class="section">
+            <h2 class="text-3xl font-bold text-center mb-8">THREAT INTELLIGENCE</h2>
+            <div class="news-feed">
+                <div class="news-item">
+                    <h3>Critical Vulnerability in Popular Web Framework</h3>
+                    <p>2025-06-20 | CVE-2025-XXXXX | High Severity</p>
+                </div>
+                <div class="news-item">
+                    <h3>New APT Group Targets Financial Sector</h3>
+                    <p>2025-06-18 | Analysis Report | Medium Severity</p>
+                </div>
+                <div class="news-item">
+                    <h3>Zero-Day Exploit in Enterprise Software</h3>
+                    <p>2025-06-15 | Active Exploitation | Critical Severity</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2 class="text-3xl font-bold text-center mb-8">ABOUT NECRO BYTE</h2>
+            <p class="max-w-2xl mx-auto text-center">
+                Necro Byte is a team of elite cybersecurity professionals with decades of combined experience in offensive security and defensive operations. Our mission is to provide cutting-edge security solutions while maintaining the authentic hacker culture that drives innovation in our field.
+            </p>
+        </section>
+
+        <!-- Labs Section -->
+        <section id="labs" class="section">
+            <h2 class="text-3xl font-bold text-center mb-8">RESEARCH LABS</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Exploit Development</h3>
+                    <p>Cutting-edge vulnerability research and exploit development</p>
+                </div>
+                <div class="service-card">
+                    <h3>Threat Hunting</h3>
+                    <p>Proactive detection of advanced threats in network environments</p>
+                </div>
+                <div class="service-card">
+                    <h3>Security Tooling</h3>
+                    <p>Custom security tool development and automation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portal Section -->
+        <section id="portal" class="section">
+            <h2 class="text-3xl font-bold text-center mb-8">CLIENT PORTAL</h2>
+            <div class="max-w-md mx-auto text-center">
+                <p>Secure access to our client portal for project tracking, reporting, and communication.</p>
+                <button class="mt-8 px-8 py-3 text-lg font-bold text-black bg-green-400 hover:bg-green-300 rounded border border-green-400 transition-all duration-300">
+                    LOGIN
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Top Left -->
+            <div class="footer-section">
+                <div class="footer-logo">NECROBYTE</div>
+                <p>Elite cybersecurity professionals specializing in advanced red team operations, penetration testing, and security research.</p>
+                <div class="contact-info">
+                    <p>Global Operations Center</p>
+                    <p>Phone: +1 (555) NECRO-BYTE</p>
+                    <p>Email: contact@necrobyte.security</p>
+                    <div class="social-icons">
+                        <a href="#">GitHub</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Center -->
+            <div class="footer-section">
+                <h3>SERVICES</h3>
+                <ul class="links-list">
+                    <li><a href="#services">Penetration Testing</a></li>
+                    <li><a href="#services">Red Team Operations</a></li>
+                    <li><a href="#services">Security Assessments</a></li>
+                    <li><a href="#services">Incident Response</a></li>
+                    <li><a href="#services">Threat Intelligence</a></li>
+                    <li><a href="#services">Security Training</a></li>
+                </ul>
+            </div>
+
+            <!-- Top Right -->
+            <div class="footer-section">
+                <h3>RESOURCES</h3>
+                <ul class="links-list">
+                    <li><a href="#">Research Papers</a></li>
+                    <li><a href="#">Vulnerability Database</a></li>
+                    <li><a href="#">Exploit Archive</a></li>
+                    <li><a href="#">Security Tools</a></li>
+                    <li><a href="#">Training Materials</a></li>
+                    <li><a href="#">Documentation</a></li>
+                </ul>
+            </div>
+
+            <!-- Top Far Right -->
+            <div class="footer-section">
+                <h3>COMPANY</h3>
+                <ul class="links-list">
+                    <li><a href="#about">About Necro Byte</a></li>
+                    <li><a href="#">Our Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Partners</a></li>
+                    <li><a href="#">Certifications</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Bottom Right -->
+            <div class="popup-box">
+                <h4>Ready to Start?</h4>
+                <p>Get a free consultation for your security needs.</p>
+                <button class="consult-button">SCHEDULE CONSULTATION</button>
+            </div>
+
+            <!-- Bottom Left -->
+            <div class="status-indicators">
+                <p>SYSTEMS OPERATIONAL</p>
+                <p>24/7 MONITORING</p>
+            </div>
+
+            <!-- Bottom Far Right -->
+            <div class="terminal-line">
+                necro@byte:~$ uptime: 1:01:16 PM
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
